@@ -1,0 +1,36 @@
+<div class="app-login">
+    <form class="app-login__form" [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
+        <h1>Login Page</h1>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <mat-form-field>
+                        <input matInput placeholder="Email" formControlName="email">
+                        <mat-error *ngIf="hasError('email', 'required')">Email is required</mat-error>
+                        <mat-error *ngIf="!hasError('email', 'required') && hasError('email', 'pattern')">
+                            Invalid Email specified
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <mat-form-field>
+                        <input matInput type="password" placeholder="Password" formControlName="password">
+                        <mat-error *ngIf="hasError('password', 'required')">Password is required</mat-error>
+                        <mat-error *ngIf="hasError('password', 'minLength')">Password min length is 6 or more
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col-sm-12" *ngIf="message !== ''">
+                <span class="text-danger">{{message}}</span>
+            </div>
+            <div class="col-sm-12">
+                <div class="app-login__form-action">
+                    <button mat-raised-button color="primary" mat-button>Sign In</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

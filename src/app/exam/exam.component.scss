@@ -1,0 +1,11 @@
+.exam-action {
+    display: flex;
+    justify-content: end;
+    border-bottom: 1px solid #ccc;
+    align-items: center;
+
+    &-label {
+        font-weight: 600;
+        color: black;
+    }
+}

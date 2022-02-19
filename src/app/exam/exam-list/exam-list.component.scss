@@ -1,0 +1,22 @@
+.exam-list {
+    padding: 10px 20px;
+
+    &__header {
+        margin-top: 10px;
+        border-bottom: 1px solid #ccc;
+    }
+
+    &__table {
+        table {
+            width: 100%;
+
+            tbody {
+                tr {
+                    td {
+                        border-bottom: 1px solid;
+                    }
+                }
+            }
+        }
+    }
+}

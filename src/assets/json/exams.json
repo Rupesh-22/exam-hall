@@ -1,0 +1,16 @@
+{
+    "exams": [
+        {
+            "id": "Ex001",
+            "name": "Javascript",
+            "totalquestion": 10,
+            "time": 60
+        },
+        {
+            "id": "Ex002",
+            "name": "C#",
+            "totalquestion": 10,
+            "time": 30
+        }
+    ]
+}

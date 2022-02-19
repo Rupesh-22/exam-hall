@@ -1,0 +1,70 @@
+.quiz {
+    padding: 10px 20px;
+
+    &__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #ccc;
+
+        &-title {
+            font-size: 17px;
+            font-weight: 600;
+        }
+
+        &-timer {
+            display: flex;
+            flex-direction: column;
+            margin-right: 10px;
+
+            &-count {
+                font-size: 30px;
+                color: green;
+            }
+
+            &-desc {
+                font-size: 16px;
+                color: black;
+            }
+        }
+
+        &-action {
+            display: flex;
+        }
+    }
+
+    &__container {
+        display: flex;
+        padding: 20px 0;
+
+        &-question {
+            width: 60%;
+
+            &-info {
+                color: black;
+                font-weight: 600;
+            }
+
+            &-title {
+                color: black;
+                font-weight: 600;
+            }
+
+            &-action {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+            }
+        }
+
+        &-pallet {
+            width: 40%;
+        }
+    }
+
+}
+
+.badge {
+    color: black;
+}

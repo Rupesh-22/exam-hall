@@ -1,0 +1,20 @@
+{
+    "users": [
+        {
+            "id": "User001",
+            "name": "Rupesh Halpati",
+            "type": "Admin",
+            "birtdate": "12/12/1996",
+            "email": "rupesh@gmail.com",
+            "password": "123456"
+        },
+        {
+            "id": "User002",
+            "name": "Manoj Kargar",
+            "type": "Student",
+            "birtdate": "24/10/1993",
+            "email": "manoj@gmail.com",
+            "password": "123456"
+        }
+    ]
+}
