@@ -10,6 +10,7 @@ const examUrl = "exam";
 const examListUrl = "list";
 const examResultUrl = "result";
 const examQuizUrl = "quiz";
+const examStudentUrl = "student";
 
 
 export class AppRoutes {
@@ -27,4 +28,6 @@ export class AppRoutes {
     public static mainExamResultUrl = rootUrl + examUrl + rootUrl + examResultUrl;
     public static examQuizUrl = examQuizUrl;
     public static mainExamQuizUrl = rootUrl + examUrl + rootUrl + examQuizUrl;
+    public static examStudentUrl = examStudentUrl;
+    public static mainExamStudentUrl = rootUrl + examUrl + rootUrl + examStudentUrl;
 }

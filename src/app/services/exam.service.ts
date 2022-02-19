@@ -28,17 +28,17 @@ export class ExamService {
     ];
   }
 
-  addResult(data: any, examId: string): void {
-   // localStorage.removeItem('userExam')
+  addResult(data: any, exam: any): void {
+    // localStorage.removeItem('userExam')
     let user = JSON.parse(localStorage.getItem('user')!);
     let storeData = {
-      ...user,
-      examId,
+      user,
+      exam,
       result: data
     }
     let result = JSON.parse(localStorage.getItem('userExam')!);
     if (result) {
-      let index = result.findIndex((x: any) => x.examId === examId && x.id === user.id);
+      let index = result.findIndex((x: any) => x.exam.id === exam.id && x.user.id === user.id);
       if (index > -1) {
         result[index] = storeData;
       } else

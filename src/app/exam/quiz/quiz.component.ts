@@ -139,9 +139,12 @@ export class QuizComponent implements OnInit {
     this.quiz.questions?.forEach(x => answers.push({ 'quizId': this.quiz.id, 'questionId': x.id, 'answered': x.answered }));
 
     // Post your data to the server here. answers contains the questionId and the users' answer.
-    this.quizService.addResult(this.quiz.questions, this.examId);
+    this.quizService.addResult(this.quiz.questions, this.exam);
     this.mode = 'result';
-    this.router.navigate([AppRoutes.mainExamResultUrl])
+    const navigationExtras: any = {
+      userId: this.user.id
+    }
+    this.router.navigate([AppRoutes.mainExamResultUrl + '/' + this.examId, navigationExtras])
 
   }
 

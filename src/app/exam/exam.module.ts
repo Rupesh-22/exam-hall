@@ -10,6 +10,7 @@ import { ExamResultComponent } from './exam-result/exam-result.component';
 import { ExamComponent } from './exam.component';
 import { FormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
+import { StudentComponent } from './student/student.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     QuizComponent,
     ExamListComponent,
     ExamResultComponent,
-    ExamComponent
+    ExamComponent,
+    StudentComponent
   ],
   imports: [
     CommonModule,

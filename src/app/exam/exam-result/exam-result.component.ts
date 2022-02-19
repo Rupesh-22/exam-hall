@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Question } from 'src/app/models/question';
 import { AppRoutes } from 'src/app/shared/constant';
 
@@ -11,16 +11,20 @@ import { AppRoutes } from 'src/app/shared/constant';
 export class ExamResultComponent implements OnInit {
 
   userExams = JSON.parse(localStorage.getItem('userExam')!);
-  userExam :any;
+  userExam: any;
   user = JSON.parse(localStorage.getItem('user')!);
 
   constructor(
-    private router: Router
+    private router: Router,
+    private activateRoute: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
-    console.log('this.user', this.user)
-    this.userExam = this.userExams.find((x: any) => this.user.id === x.id);
+    this.activateRoute.params.subscribe(res => {
+      let examId = res["id"];
+      let userId = res["userId"];
+      this.userExam = this.userExams.find((x: any) => userId === x.user.id && x.exam.id === examId);
+    });
   }
 
   isCorrect(question: Question) {
@@ -28,7 +32,12 @@ export class ExamResultComponent implements OnInit {
   };
 
   goToExam() {
-    this.router.navigate([AppRoutes.mainExamListUrl])
+    if (this.user.type === 'Admin') {
+      this.router.navigate([AppRoutes.mainExamStudentUrl])
+    } else {
+      this.router.navigate([AppRoutes.mainExamListUrl])
+    }
+
   }
 
 }

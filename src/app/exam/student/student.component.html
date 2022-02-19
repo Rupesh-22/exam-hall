@@ -1,0 +1,34 @@
+<div class="user-list">
+    <div class="user-list__header">
+        <h1>Exam List</h1>
+    </div>
+    <div class="user-list__table">
+        <table>
+            <thead>
+                <th>Exam ID</th>
+                <th>Exam Name</th>
+                <th>User Name</th>
+                <th>Action</th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of userExam">
+                    <td>
+                        {{data?.exam?.id}}
+                    </td>
+                    <td>
+                        {{data?.exam?.name}}
+                    </td>
+                    <td>
+                        {{data?.user.name}}
+                    </td>
+                    <td>
+                        <button mat-raised-button color="accent"
+                            (click)="goToResult(data?.exam?.id,data?.user?.id)">View Result</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <mat-paginator [length]="userExam?.length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions">
+        </mat-paginator>
+    </div>
+</div>

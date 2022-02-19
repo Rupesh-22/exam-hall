@@ -20,8 +20,13 @@ export class LoginComponent implements OnInit {
     private _router: Router
   ) {
     let user = JSON.parse(localStorage.getItem('user')!);
-    if (user)
-      this._router.navigate([AppRoutes.mainExamListUrl]);
+    if (user) {
+      if (user.type === 'Admin')
+        this._router.navigate([AppRoutes.mainExamStudentUrl]);
+      else {
+        this._router.navigate([AppRoutes.mainExamListUrl]);
+      }
+    }
   }
 
   ngOnInit(): void {
@@ -51,7 +56,10 @@ export class LoginComponent implements OnInit {
         console.log('user', user)
         if (user) {
           localStorage.setItem('user', JSON.stringify(user));
-          this._router.navigate([AppRoutes.mainExamListUrl]);
+          if (user.type === 'Admin')
+            this._router.navigate([AppRoutes.mainExamStudentUrl]);
+          else
+            this._router.navigate([AppRoutes.mainExamListUrl]);
         } else {
           this.message = 'Invalid email or pasword'
         }

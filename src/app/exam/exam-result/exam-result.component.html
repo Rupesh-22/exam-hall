@@ -1,7 +1,8 @@
 <div class="result">
     <div class="result__header">
         <h2>Quiz Result</h2>
-        <button mat-raised-button color="accent" (click)="goToExam()">Go To Exam</button>
+        <button mat-raised-button color="accent" (click)="goToExam()">
+            Go To {{user.type === 'Admin' ?'Student' : 'Exam'}}</button>
     </div>
     <div *ngFor="let question of userExam?.result; let index = index">
         <div class="result-question">

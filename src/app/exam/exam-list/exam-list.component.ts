@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 import { ExamService } from 'src/app/services/exam.service';
 import { AppRoutes } from 'src/app/shared/constant';
 

@@ -5,18 +5,23 @@ import { ExamListComponent } from './exam-list/exam-list.component';
 import { ExamResultComponent } from './exam-result/exam-result.component';
 import { ExamComponent } from './exam.component';
 import { QuizComponent } from './quiz/quiz.component';
+import { StudentComponent } from './student/student.component';
 
 const routes: Routes = [
   {
     path: '',
-    component:ExamComponent,
-    children:[
+    component: ExamComponent,
+    children: [
       {
         path: AppRoutes.examListUrl,
         component: ExamListComponent
       },
       {
-        path: AppRoutes.examResultUrl,
+        path: AppRoutes.examStudentUrl,
+        component: StudentComponent
+      },
+      {
+        path: AppRoutes.examResultUrl + '/:id',
         component: ExamResultComponent
       },
       {
