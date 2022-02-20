@@ -1,6 +1,12 @@
 <h6 mat-dialog-title>Are you sure you wants to fiish exam ?</h6>
-<div mat-dialog-content>If yes then click 'Yes' else click 'No' for continue</div>
+<div mat-dialog-content>
+    <span>
+        {{isExamFinished ? 'Exam Time is over press yes to submit result':
+        'If yes then click Yes else click No for continue'
+        }}
+    </span>
+</div>
 <div mat-dialog-actions class="exam-actions">
     <button class="btn btn-primary" (click)="closeDialog(true)">Yes</button>
-    <button class="btn btn-danger" (click)="closeDialog()">No</button>
+        <button [disabled]="isExamFinished" class="btn btn-danger" (click)="closeDialog()">No</button>
 </div>

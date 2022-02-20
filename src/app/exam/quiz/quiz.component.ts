@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Quiz, QuizConfig, Option } from 'src/app/models';
@@ -12,7 +12,7 @@ import { ExamCompleteModalComponent } from 'src/app/shared/modal/exam-complete-m
   templateUrl: './quiz.component.html',
   styleUrls: ['./quiz.component.scss']
 })
-export class QuizComponent implements OnInit {
+export class QuizComponent implements OnInit, OnDestroy {
 
   quizes: any[] = [];
   quiz: Quiz = new Quiz(null);
@@ -22,7 +22,7 @@ export class QuizComponent implements OnInit {
     'allowBack': true,
     'allowReview': true,
     'autoMove': false,  // if true, it will move to next question automatically when answered.
-    'duration': 300,  // indicates the time (in secs) in which quiz needs to be completed. 0 means unlimited.
+    'duration': 60,  // indicates the time (in secs) in which quiz needs to be completed. 0 means unlimited.
     'pageSize': 1,
     'requiredAll': false,  // indicates if you must answer all the questions before submitting.
     'richText': false,
@@ -78,11 +78,12 @@ export class QuizComponent implements OnInit {
   loadQuiz(quizName: string) {
     this.quizService.getQuestions(quizName).subscribe(res => {
       this.quiz = new Quiz(res);
+      this.config.duration = this.config.duration * this.exam.time;
       this.pager.count = this.quiz.questions?.length ? this.quiz.questions?.length : 1;
       this.startTime = new Date();
       this.ellapsedTime = '00:00';
       this.timer = setInterval(() => { this.tick(); }, 1000);
-      this.duration = this.parseTime(this.exam.time);
+      this.duration = this.parseTime(this.config.duration);
     });
     this.mode = 'quiz';
   }
@@ -91,7 +92,8 @@ export class QuizComponent implements OnInit {
     const now = new Date();
     const diff = (now.getTime() - this.startTime.getTime()) / 1000;
     if (diff >= this.config.duration) {
-      this.onSubmit();
+      clearInterval(this.timer)
+      this.finishExam(true);
     }
     this.ellapsedTime = this.parseTime(diff);
   }
@@ -111,7 +113,11 @@ export class QuizComponent implements OnInit {
 
   onSelect(question: Question, option: Option) {
     if (question.questionTypeId === 1) {
-      question.options.forEach((x) => { if (x.id !== option.id) x.selected = false; });
+      question.options.forEach((x) => {
+        if (x.id !== option.id) {
+          x.selected = false;
+        }
+      });
     }
 
     if (this.config.autoMove) {
@@ -130,14 +136,19 @@ export class QuizComponent implements OnInit {
     return question.options.find(x => x.selected) ? 'Answered' : 'Not Answered';
   };
 
-  isCorrect(question: Question) {
-    return question.options.every(x => x.selected === x.isAnswer) ? 'correct' : 'wrong';
-  };
 
   onSubmit() {
-    let answers = [];
-    this.quiz.questions?.forEach(x => answers.push({ 'quizId': this.quiz.id, 'questionId': x.id, 'answered': x.answered }));
-
+    this.quiz.questions?.forEach(x => {
+      let temp = x.options.find(y => y.selected === true && y.isAnswer === true);
+      let temp1 = x.options.find(y => y.selected === true && y.isAnswer === false);
+      if (temp) {
+        x.score = 1;
+      } else if (temp1) {
+        x.score = -0.5;
+      } else {
+        x.score = 0;
+      }
+    });
     // Post your data to the server here. answers contains the questionId and the users' answer.
     this.quizService.addResult(this.quiz.questions, this.exam);
     this.mode = 'result';
@@ -148,16 +159,22 @@ export class QuizComponent implements OnInit {
 
   }
 
-  finishExam() {
+  finishExam(isTimeOver: boolean = false) {
     this.dialogRef = this.dialog.open(ExamCompleteModalComponent, {
       width: '450px',
     });
-
+    if (isTimeOver) {
+      this.dialogRef.componentInstance.isExamFinished = true;
+    }
     this.dialogRef.afterClosed().subscribe((res: boolean) => {
       if (res) {
         this.onSubmit();
       }
     })
+  }
+
+  ngOnDestroy(): void {
+    window.clearInterval(this.timer);
   }
 
 }

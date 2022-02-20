@@ -1,8 +1,13 @@
 <div class="result">
     <div class="result__header">
         <h2>Quiz Result</h2>
-        <button mat-raised-button color="accent" (click)="goToExam()">
-            Go To {{user.type === 'Admin' ?'Student' : 'Exam'}}</button>
+        <div class="result__header-info">
+            <h2>
+                Your Score is {{userExam?.score}} out of {{userExam?.result?.length}}
+            </h2>
+            <button mat-raised-button color="accent" (click)="goToExam()">
+                Go To {{user.type === 'Admin' ?'Student' : 'Exam'}}</button>
+        </div>
     </div>
     <div *ngFor="let question of userExam?.result; let index = index">
         <div class="result-question">
@@ -13,8 +18,16 @@
                     {{Option.name}}
                 </div>
             </div>
-            <div class="p-1 m-2 alert {{ isCorrect(question) == 'correct'? 'alert-success': 'alert-danger'}}">
-                Your answer is {{isCorrect(question)}}.</div>
+            <ng-container *ngIf="question?.score === 0;else template;">
+                <div class="p-1 m-2 alert alert-warning">
+                    Your were not attempt.</div>
+            </ng-container>
+            <ng-template #template>
+                <div class="p-1 m-2 alert {{ isCorrect(question) === 'correct'? 'alert-success': 'alert-danger'}}">
+                    Your answer is {{isCorrect(question)}}.</div>
+                <div *ngIf="isCorrect(question) === 'wrong'" class="p-1 m-2 alert alert-success">
+                    Correct answer is {{getCorrectAnswer(question)}}.</div>
+            </ng-template>
         </div>
     </div>
 </div>

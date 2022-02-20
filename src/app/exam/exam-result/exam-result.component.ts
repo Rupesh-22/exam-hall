@@ -31,6 +31,10 @@ export class ExamResultComponent implements OnInit {
     return question.options.every(x => x.selected === x.isAnswer) ? 'correct' : 'wrong';
   };
 
+  getCorrectAnswer(question: Question) {
+    return question.options.find(x => x.isAnswer)?.name;
+  };
+
   goToExam() {
     if (this.user.type === 'Admin') {
       this.router.navigate([AppRoutes.mainExamStudentUrl])

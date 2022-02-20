@@ -7,6 +7,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
   styleUrls: ['./exam-complete-modal.component.scss']
 })
 export class ExamCompleteModalComponent implements OnInit {
+  public isExamFinished = false;
 
   constructor(
     private dialogRef: MatDialogRef<ExamCompleteModalComponent>,

@@ -28,13 +28,18 @@ export class ExamService {
     ];
   }
 
-  addResult(data: any, exam: any): void {
+  addResult(question: any, exam: any): void {
     // localStorage.removeItem('userExam')
+    let score = 0;
+    question.map((x: any) => {
+      score += x.score
+    });
     let user = JSON.parse(localStorage.getItem('user')!);
     let storeData = {
       user,
       exam,
-      result: data
+      score,
+      result: question
     }
     let result = JSON.parse(localStorage.getItem('userExam')!);
     if (result) {

@@ -3,32 +3,37 @@
         <h1>Exam List</h1>
     </div>
     <div class="user-list__table">
-        <table>
-            <thead>
-                <th>Exam ID</th>
-                <th>Exam Name</th>
-                <th>User Name</th>
-                <th>Action</th>
-            </thead>
-            <tbody>
-                <tr *ngFor="let data of userExam">
-                    <td>
-                        {{data?.exam?.id}}
-                    </td>
-                    <td>
-                        {{data?.exam?.name}}
-                    </td>
-                    <td>
-                        {{data?.user.name}}
-                    </td>
-                    <td>
-                        <button mat-raised-button color="accent"
-                            (click)="goToResult(data?.exam?.id,data?.user?.id)">View Result</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <mat-paginator [length]="userExam?.length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions">
-        </mat-paginator>
+        <ng-container *ngIf="userExam && userExam?.length >0 ; else noData;">
+            <table>
+                <thead>
+                    <th>Exam ID</th>
+                    <th>Exam Name</th>
+                    <th>User Name</th>
+                    <th>Action</th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of userExam">
+                        <td>
+                            {{data?.exam?.id}}
+                        </td>
+                        <td>
+                            {{data?.exam?.name}}
+                        </td>
+                        <td>
+                            {{data?.user.name}}
+                        </td>
+                        <td>
+                            <button mat-raised-button color="accent"
+                                (click)="goToResult(data?.exam?.id,data?.user?.id)">View Result</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <mat-paginator [length]="userExam?.length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions">
+            </mat-paginator>
+        </ng-container>
     </div>
+    <ng-template #noData>
+        <h6>No Exam Found!</h6>
+    </ng-template>
 </div>
