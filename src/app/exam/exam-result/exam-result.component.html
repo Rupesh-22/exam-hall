@@ -1,7 +1,10 @@
 <div class="result">
     <div class="result__header">
-        <h2>Quiz Result</h2>
+        <h2>Quiz Result For Exam :{{ userExam?.exam?.name}}</h2>
         <div class="result__header-info">
+            <h2>
+                Dear, {{userExam?.user?.name}}
+            </h2>
             <h2>
                 Your Score is {{userExam?.score}} out of {{userExam?.result?.length}}
             </h2>
