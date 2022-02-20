@@ -1,13 +1,13 @@
 <div class="result">
     <div class="result__header">
-        <h2>Quiz Result For Exam :{{ userExam?.exam?.name}}</h2>
+        <h4>Quiz Result For Exam : <b>{{ userExam?.exam?.name}}</b></h4>
         <div class="result__header-info">
-            <h2>
-                Dear, {{userExam?.user?.name}}
-            </h2>
-            <h2>
-                Your Score is {{userExam?.score}} out of {{userExam?.result?.length}}
-            </h2>
+            <h6>
+                Dear, <b>{{userExam?.user?.name}}</b>,
+            </h6>
+            <h6>
+                Your Score is <b>{{userExam?.score}}</b> out of <b>{{userExam?.result?.length}}</b>
+            </h6>
             <button mat-raised-button color="accent" (click)="goToExam()">
                 Go To {{user.type === 'Admin' ?'Student' : 'Exam'}}</button>
         </div>
